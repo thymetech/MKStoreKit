@@ -325,7 +325,7 @@ static MKStoreManager* _sharedStoreManager;
   MKSKSubscriptionProduct *subscriptionProduct = [self.subscriptionProducts objectForKey:featureId];
   if(!subscriptionProduct.receipt) return NO;
   
-  NSData *receiptData = [NSData dataFromBase64String:[[subscriptionProduct.receipt objectFromJSONData] objectForKey:@"latest_receipt"]];
+  NSData *receiptData = [NSData dataWithBase64String:[[subscriptionProduct.receipt objectFromJSONData] objectForKey:@"latest_receipt"]];
   
   NSPropertyListFormat plistFormat;
   NSDictionary *payloadDict = [NSPropertyListSerialization propertyListWithData:receiptData 
@@ -333,7 +333,7 @@ static MKStoreManager* _sharedStoreManager;
                                                                          format:&plistFormat 
                                                                           error:nil];  
   
-  receiptData = [NSData dataFromBase64String:[payloadDict objectForKey:@"purchase-info"]];
+  receiptData = [NSData dataWithBase64String:[payloadDict objectForKey:@"purchase-info"]];
   
   NSDictionary *receiptDict = [NSPropertyListSerialization propertyListWithData:receiptData
                                                                         options:NSPropertyListImmutable 
